@@ -1,0 +1,8 @@
+function [Binary_Image] = RGB2BINARY(RGB_Image , Threshold)
+
+end
+
+
+
+
+
