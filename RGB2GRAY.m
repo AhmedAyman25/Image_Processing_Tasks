@@ -1,6 +1,6 @@
 function Gray_Image = RGB2GRAY(RGB_Image , option)
 
-[row , col , depth]=size(RGB);
+[row , col , depth]=size(RGB_Image);
 Gray_Image = zeros(row,col);
 Gray_Image = double(Gray_Image);
 
