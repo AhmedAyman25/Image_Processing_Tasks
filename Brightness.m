@@ -1,13 +1,30 @@
-function [BrightImage] = Brightness(image , val)
+function [BrightImage] = Brightness(image ,operand, offset)
 [row , col, depth] = size(image);
-BrightImage = zeros(row,col);
+BrightImage = zeros(row,col,depth);
 BrightImage = im2double(BrightImage);
 
-for r = 1:row
-    for c = 1:col
-        BrightImage(r,c) = val * log(image(r,c) + 1);
+    if operand == '+'
+        BrightImage = image + offset;
+    elseif operand == '-'
+        BrightImage = image - offset;
+    elseif operand == '*'
+       BrightImage = image * offset;
+    elseif operand == '/'
+        BrightImage = image / offset;
     end
-end
+    
+  for r = 1:row
+        for c = 1:col
+            for dep =1:depth
+                if BrightImage(r, c, dep) > 255
+                    BrightImage(r, c, dep) = 255;
+                elseif BrightImage(r, c, dep) < 0
+                    BrightImage(r, c, dep) = 0;
+                end
+            end
+        end
+  end
 BrightImage = im2uint8(BrightImage);
 end
 
+   

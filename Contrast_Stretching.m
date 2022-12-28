@@ -1,16 +1,22 @@
 function [newImage] = Contrast_Stretching(image,newMax , newMin)
-[row , col , depth] = size(image);
-newImage = zeros(row , col);
-newImage = double(newImage);
-oldMin = min(min(image));
-oldMax = max(max(image));
-if depth == 1
-    for r = 1:row
-        for c = 1:col
-            newImage(r,c) = (((image(r,c) - oldMin)/(oldMax - oldMin)) * (newMax - newMin))+newMin;
+
+[h,w,l]=size(image);
+if l==3
+    image = rgb2gray(image);
+end
+    image = im2double(image);
+    old_max = max(image(:));
+    old_min =min(image(:));
+    
+    [h,w]=size(image);
+    newImage = zeros(h,w);
+    newImage = im2double(newImage);
+    for i=1:h
+        for j=1:w
+            newImage(i,j)= ((image(i,j)-old_min)/(old_max-old_min))*(newMax-newMin)+newMin;
         end
     end
-end
-newImage = uint8(newImage);
+    
+    newImage =im2uint8(newImage);
 end
 
